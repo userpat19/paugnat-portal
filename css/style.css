@@ -35,7 +35,7 @@ body::before {
     height: 100%;
     
     /* Use your logo image */
-    background-image: url('615049970_122108387817169481_8088493985333966496_n.jpg'); 
+    background-image: url('../images/615049970_122108387817169481_8088493985333966496_n.jpg'); 
     background-size: cover;
     background-position: center;
     
