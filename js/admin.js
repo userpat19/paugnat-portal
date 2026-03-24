@@ -1,35 +1,91 @@
-function updatePoints() {
-    const college = document.getElementById("college").value;
-    const points = document.getElementById("points").value;
-    const message = document.getElementById("message");
+// Admin dashboard JavaScript
+document.addEventListener("DOMContentLoaded", function () {
+    // Load colleges for the points form
+    loadColleges();
 
-    if (points === "" || Number(points) === 0) {
-        message.innerHTML = '<span class="text-danger">Points cannot be zero.</span>';
-        return;
+    // Handle points form submission
+    const pointsForm = document.getElementById("pointsForm");
+    if (pointsForm) {
+        pointsForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            updatePoints();
+        });
     }
 
-    fetch("backend/updatePoints.php", {
+    // Handle event form submission
+    const eventForm = document.getElementById("eventForm");
+    if (eventForm) {
+        eventForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            updateEvent();
+        });
+    }
+});
+
+function loadColleges() {
+    fetch("../backend/getColleges.php")
+        .then(response => response.json())
+        .then(data => {
+            const collegeSelect = document.getElementById("collegeId");
+            collegeSelect.innerHTML = '<option value="">Select a college</option>';
+
+            data.forEach(college => {
+                const option = document.createElement("option");
+                option.value = college.id;
+                option.textContent = college.name;
+                collegeSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error("Error loading colleges:", error);
+            document.getElementById("collegeId").innerHTML = '<option value="">Error loading colleges</option>';
+        });
+}
+
+function updatePoints() {
+    const formData = new FormData(document.getElementById("pointsForm"));
+    const messageDiv = document.getElementById("pointsMessage");
+
+    fetch("../backend/updatePoints.php", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `id=${encodeURIComponent(college)}&points=${encodeURIComponent(points)}`
+        body: formData
     })
-    .then(async (response) => {
-        const text = await response.text();
-        console.log("Raw response:", text);
-        return JSON.parse(text);
-    })
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
+        messageDiv.className = data.success ? "alert alert-success mt-3" : "alert alert-danger mt-3";
+        messageDiv.textContent = data.message;
+
         if (data.success) {
-            message.innerHTML = '<span class="text-success">Score updated successfully.</span>';
-            document.getElementById("points").value = "";
-        } else {
-            message.innerHTML = `<span class="text-danger">${data.message}</span>`;
+            document.getElementById("pointsForm").reset();
         }
     })
-    .catch((error) => {
+    .catch(error => {
         console.error("Error:", error);
-        message.innerHTML = '<span class="text-danger">Server error.</span>';
+        messageDiv.className = "alert alert-danger mt-3";
+        messageDiv.textContent = "An error occurred while updating points.";
+    });
+}
+
+function updateEvent() {
+    const formData = new FormData(document.getElementById("eventForm"));
+    const messageDiv = document.getElementById("eventMessage");
+
+    fetch("../backend/updateEvents.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        messageDiv.className = data.success ? "alert alert-success mt-3" : "alert alert-danger mt-3";
+        messageDiv.textContent = data.message;
+
+        if (data.success) {
+            document.getElementById("eventForm").reset();
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        messageDiv.className = "alert alert-danger mt-3";
+        messageDiv.textContent = "An error occurred while updating event.";
     });
 }

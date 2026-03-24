@@ -58,3 +58,49 @@ body::before {
     background-color: #FF4500 !important; /* Fire Orange instead of Blue */
     border: none;
 }
+
+/* Modern card and footer styles */
+.card-custom {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+}
+
+.navbar-custom {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.95), rgba(255, 215, 0, 0.85));
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link, .navbar-brand {
+    color: #1c1f4f !important;
+    font-weight: 700;
+}
+
+.nav-link:hover {
+    color: #0d1236 !important;
+}
+
+.btn-modern {
+    border-radius: 999px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.btn-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.35);
+}
+
+.footer-custom {
+    background: rgba(0,0,0,.9);
+    border-top: 1px solid rgba(255,255,255,.1);
+    color: #f8f9fa;
+}
+
+.footer-custom a {
+    color: #f8f9fa;
+}
+
+.footer-custom a:hover {
+    color: #ffd700;
+}
