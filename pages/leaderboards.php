@@ -1,54 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboards - PAUGNAT 2027</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body class="bg-dark text-white">
+<?php
 
-    <nav class="navbar fixed-top fw-bold text-dark bg-ustp-gold">
-        <div class="container">
-            <a href="../home.php" class="navbar-brand">PAUGNAT</a>
-            <div class="gap-5 d-flex">
-                <a href="../home.php" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About</a>
-                <a href="events.php" class="nav-link">Events</a>
-                <a href="leaderboards.php" class="nav-link">Leaderboards</a>
-                <a href="contact.php" class="nav-link">Contact</a>
-            </div>
-        </div>
-    </nav>
+require_once '../app/controllers/LeaderboardsController.php';
 
-    <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+$leaderboardsController = new LeaderboardsController();
+$leaderboardsController->index();
 
-        <h2 class="text-center mb-4 fw-bold text-ustp-gold mt-5 pt-5">🏆 Top Colleges</h2>
-
-        <div class="w-100" style="max-width: 400px;">
-            <ul class="list-group shadow-lg" id="leaderboard"></ul>
-        </div>
-
-        <div class="mt-5 w-100 py-3" style="max-width: 600px;">
-            <div class="card shadow-lg bg-ustp-gold text-dark border-0 rounded-4">
-                <div class="card-body text-center p-4 p-md-5">
-                    <h4 class="card-title fw-bold mb-3 text-uppercase">
-                        Keep the Momentum Going!
-                    </h4>
-                    <p class="card-text mb-0 text-dark opacity-75 fw-medium">
-                        Congratulations to all the colleges for their outstanding performances!
-                        Let's keep the spirit alive and continue to support each other as we aim
-                        for even greater heights in the upcoming events. Together, we can make
-                        <strong>PAUGNAT 2027</strong> an unforgettable experience for everyone!
-                    </p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/leaderboards.js"></script>
-</body>
-</html>
+?>

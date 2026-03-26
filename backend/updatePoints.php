@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-include "db.php";
+require_once '../app/models/Colleges.php';
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
@@ -21,19 +21,8 @@ if ($id <= 0 || $points == 0) {
     exit();
 }
 
-$stmt = $conn->prepare("UPDATE colleges SET points = points + ? WHERE id = ?");
-
-if (!$stmt) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Prepare failed: " . $conn->error
-    ]);
-    exit();
-}
-
-$stmt->bind_param("ii", $points, $id);
-
-if ($stmt->execute()) {
+$collegesModel = new Colleges();
+if ($collegesModel->updatePoints($id, $points)) {
     echo json_encode([
         "success" => true,
         "message" => "Points updated successfully"
@@ -41,10 +30,7 @@ if ($stmt->execute()) {
 } else {
     echo json_encode([
         "success" => false,
-        "message" => "Execute failed: " . $stmt->error
+        "message" => "Update failed"
     ]);
 }
-
-$stmt->close();
-$conn->close();
 ?>

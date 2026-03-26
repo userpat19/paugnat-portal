@@ -10,7 +10,7 @@
 <body class="bg-dark text-white">
     <nav class="navbar fixed-top  fw-bold text-dark bg-ustp-gold">
         <div class="container">
-            <a href="../home.php" class="navbar-brand ">PAUGNAT</a>
+            <a href="../home.php" class="navbar-brand">PAUGNAT</a>
             <div class="gap-5 d-flex">
                 <a href="../home.php" class="nav-link ">Home</a>
                 <a href="about.php" class="nav-link ">About</a>

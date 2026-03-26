@@ -1,18 +1,9 @@
 <?php
 header("Content-Type: application/json");
-include "db.php";
+require_once '../app/models/Colleges.php';
 
-$sql = "SELECT id, name, points FROM colleges ORDER BY points DESC, name ASC";
-$result = $conn->query($sql);
-
-$colleges = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $colleges[] = $row;
-    }
-}
+$collegesModel = new Colleges();
+$colleges = $collegesModel->getAll();
 
 echo json_encode($colleges);
-$conn->close();
 ?>
