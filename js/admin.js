@@ -125,15 +125,15 @@ function loadEvents() {
                 // Populate the event selection dropdown
                 const dropdownOption = document.createElement("option");
                 dropdownOption.value = event.id;
-                dropdownOption.textContent = `${event.event_name} (${event.event_date})`;
+                dropdownOption.textContent = `${event.eventName} (${event.eventDate})`;
                 eventDropdown.appendChild(dropdownOption);
 
                 // Populate the upcoming events table
                 const tableRow = document.createElement("tr");
                 tableRow.innerHTML = `
                     <td class="opacity-75">${event.id}</td>
-                    <td class="fw-bold">${event.event_name}</td>
-                    <td class="text-end text-info">${event.event_date}</td>
+                    <td class="fw-bold">${event.eventName}</td>
+                    <td class="text-end text-info">${event.eventDate}</td>
                 `;
                 upcomingEventsTable.appendChild(tableRow);
             });
@@ -158,8 +158,8 @@ function populateEventFields(selectedEventId) {
         return String(event.id) === String(selectedEventId);
     });
 
-    document.getElementById("eventName").value = matchedEvent ? matchedEvent.event_name : "";
-    document.getElementById("eventDate").value = matchedEvent ? matchedEvent.event_date : "";
+    document.getElementById("eventName").value = matchedEvent ? matchedEvent.eventName : "";
+    document.getElementById("eventDate").value = matchedEvent ? matchedEvent.eventDate : "";
 
     const imageFileInput = document.getElementById("eventImage");
     if (imageFileInput) imageFileInput.value = "";

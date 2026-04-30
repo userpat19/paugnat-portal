@@ -2,35 +2,23 @@
 header("Content-Type: application/json");
 require_once __DIR__ . '/../app/models/Colleges.php';
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode([
-        "success" => false,
-        "message" => "Invalid request method"
-    ]);
-    exit();
-}
+try {
+    $id = intval($_POST["id"] ?? 0);
+    $points = intval($_POST["points"] ?? 0);
 
-$id = isset($_POST["id"]) ? intval($_POST["id"]) : 0;
-$points = isset($_POST["points"]) ? intval($_POST["points"]) : 0;
+    if ($id <= 0 || $points === 0) {
+        echo json_encode(["success"=>false,"message"=>"Invalid input"]);
+        exit();
+    }
 
-if ($id <= 0 || $points == 0) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Invalid input"
-    ]);
-    exit();
-}
+    $model = new Colleges();
+    $ok = $model->updatePoints($id, $points);
 
-$collegesModel = new Colleges();
-if ($collegesModel->updatePoints($id, $points)) {
     echo json_encode([
-        "success" => true,
-        "message" => "Points updated successfully"
+        "success" => $ok,
+        "message" => $ok ? "Points updated" : "Update failed"
     ]);
-} else {
-    echo json_encode([
-        "success" => false,
-        "message" => "Update failed"
-    ]);
+
+} catch (Throwable $e) {
+    echo json_encode(["success"=>false,"message"=>$e->getMessage()]);
 }
-?>
