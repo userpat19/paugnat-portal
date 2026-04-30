@@ -24,7 +24,7 @@ class EventsController {
 
         try { @$db->query("ALTER TABLE events ADD COLUMN image_path VARCHAR(255) DEFAULT NULL"); } catch (Exception $e) {}
 
-        $result = $db->query("SELECT * FROM events ORDER BY event_date ASC");
+        $result = $db->query("SELECT * FROM events ORDER BY eventDate ASC");
         $events = [];
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {

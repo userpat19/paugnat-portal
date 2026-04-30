@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/mailconfig.php';
+require_once __DIR__ . '/../backend/db.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -20,6 +21,30 @@ if ($name === '' || $email === '' || $message === '' || !filter_var($email, FILT
     echo json_encode(['success' => false, 'message' => 'Please fill in all fields with valid data']);
     exit;
 }
+
+
+$db = new mysqli("localhost", "root", "", "paugnatdb");
+
+if ($db->connect_error) {
+    echo json_encode(['success' => false, 'message' => 'DB connection failed']);
+    exit;
+}
+
+$stmt = $db->prepare("INSERT INTO messages (name, email, message) VALUES (?, ?, ?)");
+
+if (!$stmt) {
+    echo json_encode(['success' => false, 'message' => 'Prepare failed']);
+    exit;
+}
+
+$stmt->bind_param("sss", $name, $email, $message);
+
+if (!$stmt->execute()) {
+    echo json_encode(['success' => false, 'message' => 'Insert failed']);
+    exit;
+}
+
+$stmt->close();
 
 $mail = new PHPMailer(true);
 try {

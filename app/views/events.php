@@ -49,8 +49,8 @@
                                 <?php else: ?>
                                     <div class="display-4 mb-3 text-ustp-gold">📅</div>
                                 <?php endif; ?>
-                                <h5 class="card-title fw-bold fs-4 mb-3"><?php echo htmlspecialchars($event['event_name']); ?></h5>
-                                <p class="card-text text-light opacity-75 mb-4 mt-auto">Date: <?php echo htmlspecialchars(date('F j, Y', strtotime($event['event_date']))); ?></p>
+                                <h5 class="card-title fw-bold fs-4 mb-3"><?php echo htmlspecialchars($event['eventName']); ?></h5>
+                                <p class="card-text text-light opacity-75 mb-4 mt-auto">Date: <?php echo htmlspecialchars(date('F j, Y', strtotime($event['eventDate']))); ?></p>
                                 <div>
                                     <span class="badge bg-info text-dark rounded-pill px-3 py-2 shadow-sm">Scheduled</span>
                                 </div>

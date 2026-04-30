@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "paugnat_db";
+$database = "paugnatDb";
 
 $conn = new mysqli($host, $user, $password, $database);
 

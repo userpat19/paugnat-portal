@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_id'])) {
 
 include '../backend/db.php';
 
-$result = $conn->query('SELECT id, name, email, message, status, DATE_FORMAT(created_at, "%Y-%m-%d %H:%i") as created_at FROM messages ORDER BY created_at DESC');
+$result = $conn->query('SELECT id, name, email, message, status, DATE_FORMAT(createdAt, "%Y-%m-%d %H:%i") as createdAt FROM messages ORDER BY createdAt DESC');
 $messages = [];
 
 if ($result) {
@@ -55,7 +55,7 @@ $conn->close();
                             <td><?php echo htmlspecialchars($msg['email']); ?></td>
                             <td><?php echo nl2br(htmlspecialchars($msg['message'])); ?></td>
                             <td><?php echo ucfirst($msg['status']); ?></td>
-                            <td><?php echo $msg['created_at']; ?></td>
+                            <td><?php echo $msg['createdAt']; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
