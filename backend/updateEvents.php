@@ -10,11 +10,6 @@ require_once __DIR__ . '/../app/models/Database.php';
 $db = Database::getInstance()->getConnection();
 
 
-$db->query("CREATE TABLE IF NOT EXISTS eventImages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    eventId INT NOT NULL,
-    imagePath VARCHAR(255) NOT NULL
-)");
 
 try { @$db->query("ALTER TABLE events ADD COLUMN imagePath VARCHAR(255) DEFAULT NULL"); } catch (Exception $e) {}
 
