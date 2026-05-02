@@ -1,24 +1,22 @@
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 header('Content-Type: application/json');
 require_once __DIR__ . '/../app/models/Database.php';
 
 $db = Database::getInstance()->getConnection();
 
-// Ensure tables exist
-$db->query("CREATE TABLE IF NOT EXISTS events (
+
+$db->query("CREATE TABLE IF NOT EXISTS eventImages (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    event_name VARCHAR(100) NOT NULL,
-    event_date DATE NOT NULL,
-    image_path VARCHAR(255) DEFAULT NULL
+    eventId INT NOT NULL,
+    imagePath VARCHAR(255) NOT NULL
 )");
 
-$db->query("CREATE TABLE IF NOT EXISTS event_images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    event_id INT NOT NULL,
-    image_path VARCHAR(255) NOT NULL
-)");
-
-try { @$db->query("ALTER TABLE events ADD COLUMN image_path VARCHAR(255) DEFAULT NULL"); } catch (Exception $e) {}
+try { @$db->query("ALTER TABLE events ADD COLUMN imagePath VARCHAR(255) DEFAULT NULL"); } catch (Exception $e) {}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
@@ -26,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $id         = isset($_POST['id']) ? intval($_POST['id']) : 0;
-$event_name = isset($_POST['event_name']) ? trim($_POST['event_name']) : '';
-$event_date = isset($_POST['event_date']) ? trim($_POST['event_date']) : '';
+$event_name = isset($_POST['eventName']) ? trim($_POST['eventName']) : '';
+$event_date = isset($_POST['eventDate']) ? trim($_POST['eventDate']) : '';
 
 if ($event_name === '' || $event_date === '') {
     echo json_encode(['success' => false, 'message' => 'Please provide event name and date.']);
@@ -84,7 +82,7 @@ if (!empty($_FILES[$filesKey]['name'][0])) {
     $count = count($files['name']);
 
     // Delete old images for this event before saving new ones
-    $del = $db->prepare('DELETE FROM event_images WHERE event_id = ?');
+    $del = $db->prepare('DELETE FROM eventImages WHERE eventId = ?');
     $del->bind_param('i', $id);
     $del->execute();
     $del->close();
@@ -98,7 +96,7 @@ if (!empty($_FILES[$filesKey]['name'][0])) {
         $newFileName = time() . '_' . rand(100, 999) . '_' . $i . '.' . $ext;
         if (move_uploaded_file($files['tmp_name'][$i], $uploadDir . $newFileName)) {
             $imgPath = 'images/events/' . $newFileName;
-            $stmt = $db->prepare('INSERT INTO event_images (event_id, image_path) VALUES (?, ?)');
+            $stmt = $db->prepare('INSERT INTO eventImages (eventId, imagePath) VALUES (?, ?)');
             $stmt->bind_param('is', $id, $imgPath);
             $stmt->execute();
             $stmt->close();

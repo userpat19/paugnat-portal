@@ -151,11 +151,11 @@ if ($result && $result->num_rows === 1) {
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light fw-bold">Event Name</label>
-                            <input type="text" name="event_name" id="eventName" class="form-control bg-dark text-white border-secondary" placeholder="Event title" required>
+                            <input type="text" name="eventName" id="eventName" class="form-control bg-dark text-white border-secondary" placeholder="Event title" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-light fw-bold">Event Date</label>
-                            <input type="date" name="event_date" id="eventDate" class="form-control bg-dark text-white border-secondary" required>
+                            <input type="date" name="eventDate" id="eventDate" class="form-control bg-dark text-white border-secondary" required>
                         </div>
                         <div class="mb-4">
                             <label class="form-label text-light fw-bold">Event Images (Optional)</label>
