@@ -16,7 +16,7 @@ if ($id <= 0) {
 $db = Database::getInstance()->getConnection();
 
 // Delete associated images first
-$db->query("DELETE FROM event_images WHERE event_id = $id");
+$db->query("DELETE FROM eventImages WHERE eventId = $id");
 
 // Delete the event
 $stmt = $db->prepare('DELETE FROM events WHERE id = ?');

@@ -10,7 +10,6 @@ class Admins {
     }
 
     public function authenticate($username, $password) {
-        $this->ensureTableExists();
 
         $stmt = $this->db->prepare("SELECT id, username, password FROM admins WHERE username = ?");
         $stmt->bind_param("s", $username);

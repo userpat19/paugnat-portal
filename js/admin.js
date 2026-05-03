@@ -6,7 +6,7 @@
  *   - Creating, editing, and deleting events with validation
  */
 
-/** @type {Array<{id: number, event_name: string, event_date: string}>} */
+/** @type {Array<{id: number, eventName: string, eventDate: string}>} */
 let cachedEventsList = [];
 
 // ─── Initialisation ──────────────────────────────────────────────────────────
